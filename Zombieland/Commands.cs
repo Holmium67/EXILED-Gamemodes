@@ -15,7 +15,7 @@ namespace Zombieland
 			
 			string[] args = ev.Command.Split(' ');
 
-			switch (args[0].ToLower())
+			switch (args[1].ToLower())
 			{
 				case "enable":
 					ev.Allow = false;
