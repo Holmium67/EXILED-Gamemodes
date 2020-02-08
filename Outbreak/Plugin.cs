@@ -10,7 +10,6 @@ namespace Outbreak
 		public Commands Commands { get; private set; }
 
 		public bool Enabled;
-		public int MaxZombies;
 		public int ZombieHealth;
 		public bool AlphasBreakDoors;
 
@@ -35,6 +34,7 @@ namespace Outbreak
 			Events.PlayerJoinEvent += EventHandlers.OnPlayerJoin;
 			Events.CheckRoundEndEvent += EventHandlers.OnCheckRoundEnd;
 			Events.PlayerDeathEvent += EventHandlers.OnPlayerDeath;
+			Events.DoorInteractEvent += EventHandlers.OnDoorInteraction;
 		}
 
 		public override void OnDisable()
@@ -58,8 +58,8 @@ namespace Outbreak
 		public void ReloadConfig()
 		{
 			Enabled = Config.GetBool("Outbreak_enabled", true);
-			MaxZombies = Config.GetInt("Outbreak_max_alphas", 3);
 			ZombieHealth = Config.GetInt("Outbreak_alpha_health", 3000);
+			AlphasBreakDoors = Config.GetBool("Outbreak_alpha_doors", true);
 		}
 	}
 }

@@ -18,16 +18,23 @@ namespace Outbreak
 		{
 			plugin.GamemodeEnabled = false;
 		}
-		public IEnumerator<float> SpawnAlpha(ReferenceHub player)
+		public IEnumerator<float> SpawnAlphas()
 		{
 			yield return Timing.WaitForSeconds(1f);
-			
-			player.characterClassManager.SetPlayersClass(RoleType.Scp0492, player.gameObject);
-			yield return Timing.WaitForSeconds(1.5f);
-			
-			player.plyMovementSync.OverridePosition(Plugin.GetRandomSpawnPoint(RoleType.Scp049), player.gameObject.transform.rotation.y);
-			player.playerStats.maxHP = plugin.ZombieHealth;
-			player.playerStats.health = plugin.ZombieHealth;
+
+			foreach (ReferenceHub player in Plugin.GetHubs())
+			{
+				if (!player.characterClassManager.IsAnyScp())
+					continue;
+				
+				player.characterClassManager.SetPlayersClass(RoleType.Scp0492, player.gameObject);
+				yield return Timing.WaitForSeconds(1.5f);
+
+				player.plyMovementSync.OverridePosition(Plugin.GetRandomSpawnPoint(RoleType.Scp049),
+					player.gameObject.transform.rotation.y);
+				player.playerStats.maxHP = plugin.ZombieHealth;
+				player.playerStats.health = plugin.ZombieHealth;
+			}
 		}
 
 		public IEnumerator<float> RespawnZombie(ReferenceHub hub)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Dissonance;
 using EXILED;
 using EXILED.Extensions;
 using MEC;
@@ -21,13 +22,7 @@ namespace Outbreak
 				return;
 			plugin.RoundStarted = true;
 
-			List<ReferenceHub> hubs = Plugin.GetHubs();
-			for (int i = 0; i < hubs.Count && hubs.Count > 1; i++)
-			{
-				int r = plugin.Gen.Next(hubs.Count);
-				Timing.RunCoroutine(plugin.Functions.SpawnAlpha(hubs[r]));
-				hubs.Remove(hubs[r]);
-			}
+			Timing.RunCoroutine(plugin.Functions.SpawnAlphas());
 		}
 
 		public void OnRoundEnd()
@@ -89,6 +84,16 @@ namespace Outbreak
 			
 			if (type != DamageTypes.Nuke && type != DamageTypes.Decont && type != DamageTypes.Tesla)
 				Timing.RunCoroutine(plugin.Functions.RespawnZombie(ev.Player));
+		}
+
+		public void OnDoorInteraction(ref DoorInteractionEvent ev)
+		{
+			if (ev.Player.characterClassManager.CurClass == RoleType.Scp0492 && ev.Player.playerStats.maxHP == plugin.ZombieHealth && ev.Door.Networklocked && plugin.AlphasBreakDoors)
+			{
+				ev.Door.Networkdestroyed = true;
+				if (ev.Door.GrenadesResistant)
+					ev.Door.NetworkisOpen = true;
+			}
 		}
 	}
 }
