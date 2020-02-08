@@ -20,6 +20,7 @@ namespace Outbreak
 		{
 			if (!plugin.GamemodeEnabled)
 				return;
+			
 			plugin.RoundStarted = true;
 
 			Timing.RunCoroutine(plugin.Functions.SpawnAlphas());
@@ -34,6 +35,7 @@ namespace Outbreak
 		{
 			if (!plugin.GamemodeEnabled)
 				return;
+			
 			if (plugin.RoundStarted)
 				ev.Player.Broadcast(5, "<color=green>Currently playing: Outbreak Gamemode.</color>");
 			else
@@ -46,7 +48,7 @@ namespace Outbreak
 
 		public void OnCheckRoundEnd(ref CheckRoundEndEvent ev)
 		{
-			if (!plugin.GamemodeEnabled && plugin.RoundStarted)
+			if (!plugin.RoundStarted)
 				return;
 			
 			int zCount = 0;
@@ -78,8 +80,9 @@ namespace Outbreak
 
 		public void OnPlayerDeath(ref PlayerDeathEvent ev)
 		{
-			if (!plugin.GamemodeEnabled && plugin.RoundStarted)
+			if (!plugin.RoundStarted)
 				return;
+			
 			DamageTypes.DamageType type = ev.Info.GetDamageType();
 			
 			if (type != DamageTypes.Nuke && type != DamageTypes.Decont && type != DamageTypes.Tesla)
@@ -88,6 +91,9 @@ namespace Outbreak
 
 		public void OnDoorInteraction(ref DoorInteractionEvent ev)
 		{
+			if (!plugin.RoundStarted)
+				return;
+			
 			if (ev.Player.characterClassManager.CurClass == RoleType.Scp0492 && ev.Player.playerStats.maxHP == plugin.ZombieHealth && ev.Door.Networklocked && plugin.AlphasBreakDoors)
 			{
 				ev.Door.Networkdestroyed = true;

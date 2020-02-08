@@ -47,6 +47,9 @@ namespace Zombieland
 
 		public void OnTeamRespawn(ref TeamRespawnEvent ev)
 		{
+			if (!plugin.RoundStarted)
+				return;
+			
 			foreach (ReferenceHub hub in ev.ToRespawn.Take(ev.MaxRespawnAmt))
 				hub.characterClassManager.SetPlayersClass(RoleType.Scp0492, hub.gameObject);
 			ev.ToRespawn = new List<ReferenceHub>();
@@ -57,6 +60,7 @@ namespace Zombieland
 		{
 			if (!plugin.GamemodeEnabled)
 				return;
+			
 			if (!plugin.RoundStarted)
 			{
 				PlayerManager.localPlayer.gameObject.GetComponent<Broadcast>().RpcClearElements();

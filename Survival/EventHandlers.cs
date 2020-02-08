@@ -62,6 +62,9 @@ namespace Survival
 
 		public void OnTeamRespawn(ref TeamRespawnEvent ev)
 		{
+			if (!plugin.RoundStarted)
+				return;
+			
 			ev.ToRespawn = new List<ReferenceHub>();
 			ev.MaxRespawnAmt = 0;
 		}

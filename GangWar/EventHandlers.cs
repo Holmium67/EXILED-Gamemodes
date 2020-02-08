@@ -11,47 +11,45 @@ namespace GangWar
 
 		public void OnWaitingForPlayers()
 		{
-			if (plugin.GamemodeEnabled)
-				plugin.RoundStarted = false;
+			plugin.RoundStarted = false;
 		}
 
 		public void OnRoundStart()
 		{
-			if (plugin.GamemodeEnabled)
-			{
-				plugin.RoundStarted = true;
-				Timing.RunCoroutine(plugin.Functions.SpawnPlayers());
-			}
+			if (!plugin.GamemodeEnabled) 
+				return;
+			
+			plugin.RoundStarted = true;
+			Timing.RunCoroutine(plugin.Functions.SpawnPlayers());
 		}
 
 		public void OnRoundEnd()
 		{
-			if (plugin.GamemodeEnabled)
-				plugin.RoundStarted = false;
+			plugin.RoundStarted = false;
 		}
 
 		public void OnPlayerJoin(PlayerJoinEvent ev)
 		{
-			if (plugin.GamemodeEnabled)
-			{
-				PlayerManager.localPlayer.GetComponent<Broadcast>().RpcClearElements();
-				if (plugin.RoundStarted)
-					ev.Player.Broadcast(5, "<color=green>Currently playing Gangwar Gamemode!</color>");
-				else
-					PlayerManager.localPlayer.GetComponent<Broadcast>()
-						.RpcAddElement("<color=green>Gangwar is starting..</color>", 5, false);
-			}
+			if (!plugin.GamemodeEnabled) 
+				return;
+			
+			PlayerManager.localPlayer.GetComponent<Broadcast>().RpcClearElements();
+			if (plugin.RoundStarted)
+				ev.Player.Broadcast(5, "<color=green>Currently playing Gangwar Gamemode!</color>");
+			else
+				PlayerManager.localPlayer.GetComponent<Broadcast>()
+					.RpcAddElement("<color=green>Gangwar is starting..</color>", 5, false);
 		}
 
 		public void OnRespawn(ref TeamRespawnEvent ev)
 		{
-			if (plugin.GamemodeEnabled && plugin.RoundStarted)
-			{
-				ev.IsChaos = RoundSummary.singleton.CountTeam(Team.MTF) > RoundSummary.singleton.CountTeam(Team.CHI);
+			if (!plugin.RoundStarted)
+				return;
+			
+			ev.IsChaos = RoundSummary.singleton.CountTeam(Team.MTF) > RoundSummary.singleton.CountTeam(Team.CHI);
 
-				foreach (ReferenceHub hub in ev.ToRespawn)
-					Timing.RunCoroutine(plugin.Functions.SetInventory(hub, 2f));
-			}
+			foreach (ReferenceHub hub in ev.ToRespawn)
+				Timing.RunCoroutine(plugin.Functions.SetInventory(hub, 2f));
 		}
 	}
 }
