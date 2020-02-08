@@ -25,7 +25,7 @@ namespace Zombieland
 			List<ReferenceHub> players = Plugin.GetHubs();
 			List<ReferenceHub> ntf = new List<ReferenceHub>();
 
-			for (int i = 0; i < 3 && players.Count > 2; i++)
+			for (int i = 0; i < plugin.MaxNtf && players.Count > 2; i++)
 			{
 				int r = plugin.Gen.Next(players.Count);
 				ntf.Add(players[r]);

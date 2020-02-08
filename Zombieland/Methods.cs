@@ -44,6 +44,8 @@ namespace Zombieland
 					hub.inventory.AddNewItem(item, 60);
 				
 				hub.plyMovementSync.OverridePosition(Plugin.GetRandomSpawnPoint(RoleType.Scp93953), 0f);
+				hub.playerStats.maxHP = plugin.NtfHealth;
+				hub.playerStats.health = plugin.NtfHealth;
 			}
 		}
 

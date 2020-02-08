@@ -10,6 +10,7 @@ namespace Survival
 		public Commands Commands { get; private set; }
 
 		public bool Enabled;
+		public int MaxNuts;
 
 		public bool RoundStarted = false;
 		public bool GamemodeEnabled = false;
@@ -54,6 +55,7 @@ namespace Survival
 		public void ReloadConfig()
 		{
 			Enabled = Config.GetBool("Survival_enabled", true);
+			MaxNuts = Config.GetInt("Survival_max_nuts", 3);
 		}
 	}
 }

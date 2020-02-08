@@ -12,6 +12,8 @@ namespace Zombieland
 		public Commands Commands { get; private set; }
 
 		public bool Enabled;
+		public int MaxNtf;
+		public int NtfHealth;
 
 		public bool GamemodeEnabled;
 		public bool RoundStarted;
@@ -56,6 +58,8 @@ namespace Zombieland
 		public void ReloadConfig()
 		{
 			Enabled = Config.GetBool("Zombieland_enabled", true);
+			MaxNtf = Config.GetInt("Zombieland_max_ntf", 3);
+			NtfHealth = Config.GetInt("Zombieland_ntf_health", 500);
 		}
 	}
 }

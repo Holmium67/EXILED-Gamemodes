@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using EXILED.Extensions;
 using MEC;
+using Mirror;
 using UnityEngine;
 
 namespace Survival
@@ -43,7 +44,7 @@ namespace Survival
 				hub.Broadcast(30, "<color=red>You are a Nut, once this notice dissapears, you will be set loose to kill the Dbois!</color>");
 			}
 
-			yield return Timing.WaitForSeconds(30f);
+			yield return Timing.WaitForSeconds(120f);
 			
 			foreach (ReferenceHub hub in hubs)
 				hub.plyMovementSync.OverridePosition(Plugin.GetRandomSpawnPoint(RoleType.Scp93953), 0f);
@@ -63,13 +64,13 @@ namespace Survival
 		public void DoSetup()
 		{
 			foreach (Door door in Object.FindObjectsOfType<Door>())
-				if (door.DoorName.Contains("CHK") || door.DoorName.Contains("ARMORY"))
+				if (door.DoorName.Contains("CHK") || door.DoorName.Contains("ARMORY") || door.DoorName.Contains("173"))
 				{
 					door.Networklocked = true;
 					door.NetworkisOpen = false;
 				}
 			foreach (Pickup item in Object.FindObjectsOfType<Pickup>())
-				Object.Destroy(item);
+				item.Delete();
 		}
 	}
 }

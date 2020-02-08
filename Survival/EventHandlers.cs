@@ -28,7 +28,7 @@ namespace Survival
 			List<ReferenceHub> hubs = Plugin.GetHubs();
 			List<ReferenceHub> nuts = new List<ReferenceHub>();
 			
-			for (int i = 0; i < 3 && hubs.Count > 2; i++)
+			for (int i = 0; i < plugin.MaxNuts && hubs.Count > 2; i++)
 			{
 				int r = plugin.Gen.Next(hubs.Count);
 				nuts.Add(hubs[r]);
