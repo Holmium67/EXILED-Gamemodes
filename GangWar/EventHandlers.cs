@@ -1,3 +1,4 @@
+using System;
 using EXILED;
 using EXILED.Extensions;
 using MEC;
@@ -16,11 +17,18 @@ namespace GangWar
 
 		public void OnRoundStart()
 		{
-			if (!plugin.GamemodeEnabled) 
-				return;
-			
-			plugin.RoundStarted = true;
-			Timing.RunCoroutine(plugin.Functions.SpawnPlayers());
+			try
+			{
+				if (!plugin.GamemodeEnabled)
+					return;
+				
+				plugin.RoundStarted = true;
+				Timing.RunCoroutine(plugin.Functions.SpawnPlayers());
+			}
+			catch (Exception e)
+			{
+				Plugin.Error($"ROUND START ERROR< REEEE: {e}");
+			}
 		}
 
 		public void OnRoundEnd()

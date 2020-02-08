@@ -25,7 +25,7 @@ namespace GangWar
 			yield return Timing.WaitForSeconds(1f);
 
 			List<ReferenceHub> players = Plugin.GetHubs();
-
+			
 			for (int i = 0; i < players.Count / 2; i++)
 			{
 				players[i].characterClassManager.SetPlayersClass(RoleType.ChaosInsurgency, players[i].gameObject);
