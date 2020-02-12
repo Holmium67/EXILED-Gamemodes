@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outbreak", "Outbreak\Outbre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dodgeball", "Dodgeball\Dodgeball.csproj", "{B08E4740-D8EA-448A-AB34-4D9D2E196420}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandStand", "HandStand\HandStand.csproj", "{A91B226B-F933-40B0-9EB0-254D3A47A6F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{B08E4740-D8EA-448A-AB34-4D9D2E196420}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B08E4740-D8EA-448A-AB34-4D9D2E196420}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B08E4740-D8EA-448A-AB34-4D9D2E196420}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A91B226B-F933-40B0-9EB0-254D3A47A6F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91B226B-F933-40B0-9EB0-254D3A47A6F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91B226B-F933-40B0-9EB0-254D3A47A6F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91B226B-F933-40B0-9EB0-254D3A47A6F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

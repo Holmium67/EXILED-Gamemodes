@@ -25,8 +25,9 @@ namespace Zombieland
 		{
 			foreach (ReferenceHub hub in hubs)
 			{
-				hub.characterClassManager.NetworkCurClass = RoleType.NtfCommander;
-				yield return Timing.WaitForOneFrame * 30;
+				yield return Timing.WaitForSeconds(2f);
+				hub.characterClassManager.SetPlayersClass(RoleType.NtfCommander, hub.gameObject);
+				yield return Timing.WaitForSeconds(1f);
 				
 				hub.inventory.Clear();
 				List<ItemType> items = new List<ItemType>
@@ -53,8 +54,9 @@ namespace Zombieland
 		{
 			foreach (ReferenceHub hub in hubs)
 			{
-				hub.characterClassManager.NetworkCurClass = RoleType.Scp0492;
-				yield return Timing.WaitForOneFrame * 30;
+				yield return Timing.WaitForSeconds(2f);
+				hub.characterClassManager.SetPlayersClass(RoleType.Scp0492, hub.gameObject);
+				yield return Timing.WaitForSeconds(1f);
 
 				hub.plyMovementSync.OverridePosition(Plugin.GetRandomSpawnPoint(RoleType.ClassD), 0f);
 			}

@@ -28,7 +28,7 @@ namespace Massacre
 
 			try
 			{
-				List<ReferenceHub> players = Plugin.GetHubs();
+				List<ReferenceHub> players = Massacre.GetHubs();
 				List<ReferenceHub> nuts = new List<ReferenceHub>();
 				for (int i = 0; i < plugin.MaxPeanuts; i++)
 				{
@@ -41,25 +41,40 @@ namespace Massacre
 				foreach (ReferenceHub player in players)
 					player.characterClassManager.SetPlayersClass(RoleType.ClassD, player.gameObject);
 
-				Timing.RunCoroutine(TeleportPlayers(players, nuts));
+				Timing.RunCoroutine(TeleportPlayers());
 			}
 			catch (Exception e)
 			{
-				Plugin.Error(e.ToString());
+				Massacre.Error(e.ToString());
 			}
 		}
 
-		public IEnumerator<float> TeleportPlayers(IEnumerable<ReferenceHub> humans, IEnumerable<ReferenceHub> peanuts)
+		public IEnumerator<float> TeleportPlayers()
 		{
 			yield return Timing.WaitForSeconds(0.5f);
+			Massacre.Debug("Teleporting humans..");
 
-			foreach (ReferenceHub hub in humans)
-				hub.plyMovementSync.OverridePosition(new Vector3(53, 1020, -44), 0f);
+			List<ReferenceHub> players = Massacre.GetHubs();
+			foreach (ReferenceHub hub in players)
+			{
+				if (hub.characterClassManager.IsHuman())
+				{
+					Plugin.Debug($"Teleporting {hub.nicknameSync.MyNick} - {hub.characterClassManager.CurClass}");
+					hub.plyMovementSync.OverridePosition(new Vector3(53, 1020, -44), 0f);
+				}
+			}
 
 			yield return Timing.WaitForSeconds(3f);
 			
-			foreach (ReferenceHub nut in peanuts)
-				nut.plyMovementSync.OverridePosition(new Vector3(53, 1020, -44), 0f);
+			Massacre.Debug("Teleporting peanut bois");
+			foreach (ReferenceHub nut in players)
+			{
+				if (nut.characterClassManager.IsAnyScp())
+				{
+					Massacre.Debug($"Teleporting {nut.nicknameSync.MyNick} - {nut.characterClassManager.CurClass}");
+					nut.plyMovementSync.OverridePosition(new Vector3(53, 1020, -44), 0f);
+				}
+			}
 		}
 	}
 }
